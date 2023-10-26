@@ -10,14 +10,13 @@ compute_f_hat=function(z,x,y,omega){
   return(f_hat) 
 }
 
-make_weight_matrix <- function(omega, x, z){
-  r = abs(x-z) / omega
-  #r = outer(x, z, FUN = "-") / omega
-  W = ifelse(abs(r)<1, (1-abs(r)^3)^3, 0)
-  out = diag(W)
-  # out = matrix(W, nrow = length(x), ncol = length(z))
-  return(out)
+make_weight_matrix <- function(z,x,omega){
+  r = abs(x - z) / omega
+  W_values = ifelse(abs(r) < 1, (1 - abs(r)^3)^3, 0)
+  Wz = diag(W_values)
+  return(Wz)
 }
+
 
 make_predictor_matrix <- function(x){
   X = cbind(1,x)
