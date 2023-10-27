@@ -35,7 +35,8 @@ make_weight_matrix_new <- function(z,x,omega){
 compute_f_hat_new=function(z,x,y,omega){
   Wz=make_weight_matrix_new(z,x,omega) 
   X=make_predictor_matrix(x) 
-  f_hat=c(1,z)%*%solve(t(X)%*%(Wz*X))%*%t(X)%*%(Wz*y)
+  result_x = sweep(X,1,Wz,`*`)
+  f_hat=c(1,z)%*%solve(t(X)%*% result_x )%*%t(X)%*%(Wz*y)
   
   
   return(f_hat) 
