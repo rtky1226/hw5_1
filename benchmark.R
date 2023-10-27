@@ -13,7 +13,7 @@ z = seq(-1, 1, length.out = 100)
 results <- microbenchmark(
   llr_result = llr(omega = 2, x = x, y = y, z = z),
   llr_new_result = llr_new(omega = 2, x = x, y = y, z = z),
-  times = 1000 # number of times to run the expression for the benchmark
+  times = 1000 
 )
 
 print(results)

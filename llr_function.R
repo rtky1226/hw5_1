@@ -28,14 +28,14 @@ make_weight_matrix_new <- function(z,x,omega){
   r = abs(x - z) / omega
   W_values = ifelse(abs(r) < 1, (1 - abs(r)^3)^3, 0)
   Wz = diag(W_values)
-  return(W_values)
+  return(Wz)
 }
 
 
 compute_f_hat_new=function(z,x,y,omega){
-  Wz=make_weight_matrix_new(z,x,omega) 
+  Wz=diag(make_weight_matrix_new(z,x,omega))
   X=make_predictor_matrix(x) 
-  f_hat=c(1,z)%*%solve(t(X)%*%(Wz*X))%*%t(X)%*%(Wz*y)
+  f_hat=c(1,z)%*%solve(t(X)%*%(apply(X, 2, function(column) column * Wz)))%*%t(X)%*%(Wz*y)
   
   
   return(f_hat) 
